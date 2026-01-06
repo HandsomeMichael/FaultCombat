@@ -1,0 +1,35 @@
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Visual Studio
+.vs/
+*.sln.user
+*.csproj.user
+*.vbproj.user
+
+# tModLoader specific
+enabled.json
+disabled.json
+*.tmod
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+packages/
+.nuget/
+
+# User files
+local.json
+config.json

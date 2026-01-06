@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaultCombat", "FaultCombat.csproj", "{E529A8F1-D94F-4704-D4FF-F7DA6FA96F8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E529A8F1-D94F-4704-D4FF-F7DA6FA96F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E529A8F1-D94F-4704-D4FF-F7DA6FA96F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E529A8F1-D94F-4704-D4FF-F7DA6FA96F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E529A8F1-D94F-4704-D4FF-F7DA6FA96F8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7DF6710-E2A7-4C61-B52B-0AD6B9182E0E}
+	EndGlobalSection
+EndGlobal

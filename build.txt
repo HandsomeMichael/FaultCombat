@@ -1,0 +1,3 @@
+displayName = Fault Combat : Sins and Ego
+author = MrAgustavo
+version = 0.1
