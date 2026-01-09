@@ -1,24 +1,98 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace FaultCombat
 {
-	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class FaultCombat : Mod
 	{
+		public static bool HasCalamity() => calamity != null;
+		public static Mod calamity = null;
+		public static ModKeybind KeyDodgeroll { get; set; }
+		public static ModKeybind KeyBlock { get; set; }
+
         public override void Load()
 		{
-			// On_Player.Hurt_PlayerDeathReason_int_int_refHurtInfo_bool_bool_int_bool_float_float_float += HurtPatch;
+			KeyDodgeroll = KeybindLoader.RegisterKeybind(this, "Dodgeroll", Keys.LeftControl);
+			KeyBlock = KeybindLoader.RegisterKeybind(this, "Block", Keys.LeftAlt);
 		}
 
-        // private double HurtPatch(On_Player.orig_Hurt_PlayerDeathReason_int_int_refHurtInfo_bool_bool_int_bool_float_float_float orig, Player self, PlayerDeathReason damageSource, int Damage, int hitDirection, out Player.HurtInfo info, bool pvp, bool quiet, int cooldownCounter, bool dodgeable, float armorPenetration, float scalingArmorPenetration, float knockback)
-        // {
-        // }
+        public override void Unload()
+        {
+            calamity = null;
+			KeyDodgeroll = null;
+			KeyBlock = null;
+        }
+
+		
+		// current only does dodge, later i would problaby add parry , cancel dodge, cancel dash, cancel item use , throw weapon 
+		public enum MessageType : byte
+		{
+			FuckingDodge, FuckingDodgeServer,
+			InstinctDodged, InstinctDodgedServer
+		}
+		
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			MessageType msgType = (MessageType)reader.ReadByte();
+
+			switch (msgType)
+			{
+				// server be like : hmm i should send all ts to other client except for you again
+				case MessageType.FuckingDodgeServer:
+					if (whoAmI != 255)
+					{
+						ModPacket modPacket = GetPacket();
+						modPacket.Write((byte)MessageType.FuckingDodge);
+						modPacket.Write((byte)whoAmI);
+						modPacket.WriteVector2(reader.ReadVector2());
+						modPacket.Send(-1, whoAmI);
+					}
+					else
+					{
+						Logger.WarnFormat("Dodgeroll: packet shouldve not been sent to a client, wtf", msgType);
+					}
+					break;
+				// client be like : uhhhh. okay
+				case MessageType.FuckingDodge:
+				
+					byte playerNumber = reader.ReadByte();
+					var boost = reader.ReadVector2();
+					// int direction = reader.ReadInt16();
+					// Main.player[playerNumber].GetModPlayer<DodgerollPlayer>().InitiateDodgeroll(boost, direction);
+					
+					break;
+
+				//sync instinct dodge
+				case MessageType.InstinctDodgedServer:
+					if (whoAmI != 255)
+					{
+						ModPacket modPacket = GetPacket();
+						modPacket.Write((byte)MessageType.FuckingDodge);
+						modPacket.Write((byte)whoAmI);
+						modPacket.Send(-1, whoAmI);
+					}
+					else
+					{
+						Logger.WarnFormat("Dodgeroll: packet shouldve not been sent to a client, wtf", msgType);
+					}
+					break;
+
+				case MessageType.InstinctDodged:
+					int pNum = reader.ReadByte();
+					if (Main.player[pNum].TryGetModPlayer(out DodgerollPlayer dp)) dp.InstinctDodged();
+					break;
+				default:
+					Logger.WarnFormat("Dodgeroll: Unknown Message type: {0}", msgType);
+					break;
+			}
+		}
     }
 }
