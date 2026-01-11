@@ -33,6 +33,11 @@ public class FaultPlayer : ModPlayer
     //     }
     // }
 
+    public override void PreUpdate()
+    {
+        roll.PreUpdate(Player);
+        // block.PreUpdate(Player);
+    }
     public override void ResetEffects()
     {
         block.ResetEffects();
@@ -45,7 +50,7 @@ public class FaultPlayer : ModPlayer
 
         block.Update(Player);
         // roll effect
-        roll.Rotate(Player);
+        roll.PostUpdate(Player);
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

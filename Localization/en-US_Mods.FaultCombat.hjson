@@ -1,1 +1,12 @@
 
+Tooltips: 
+{
+    StaminaRegen: "Increase stamina regeneration by {0}/s"
+    StaminaMax: "Increase maximum stamina by {0}"
+    StaminaOnHit:"Restore 50% of stamina"
+
+    RollPerfect: "{0} on perfect dodgeroll"
+    RollCost: "Increase stamina cost of dodgeroll"
+    RollPowerup: "Upon eating, allowing you to grant perfect dodgeroll"
+    
+}

@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FaultCombat
 {
-	public class FaultCombat : Mod
+    public class FaultCombat : Mod
 	{
 		public static bool HasCalamity() => calamity != null;
 		public static Mod calamity = null;
@@ -36,23 +36,31 @@ namespace FaultCombat
 		public enum MessageType : byte
 		{
 			FuckingDodge, FuckingDodgeServer,
-			InstinctDodged, InstinctDodgedServer
+			InstinctDodged, InstinctDodgedServer,
+			Stagger,StaggerServer,
+			Block,BlockServer,
+			Throw,ThrowServer
 		}
 		
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
 			MessageType msgType = (MessageType)reader.ReadByte();
-
-			switch (msgType)
+            FaultPlayer modPlayer;
+            switch (msgType)
 			{
 				// server be like : hmm i should send all ts to other client except for you again
 				case MessageType.FuckingDodgeServer:
 					if (whoAmI != 255)
 					{
+						var velocity = reader.ReadVector2();
+
+						// does the server handle shit ? fuck no
+						if (Main.player[whoAmI].TryGetModPlayer(out modPlayer)) modPlayer.roll.ApplyBoost(modPlayer.Player,velocity);
+
 						ModPacket modPacket = GetPacket();
 						modPacket.Write((byte)MessageType.FuckingDodge);
 						modPacket.Write((byte)whoAmI);
-						modPacket.WriteVector2(reader.ReadVector2());
+						modPacket.WriteVector2(velocity);
 						modPacket.Send(-1, whoAmI);
 					}
 					else
@@ -87,7 +95,7 @@ namespace FaultCombat
 
 				case MessageType.InstinctDodged:
 					int pNum = reader.ReadByte();
-					if (Main.player[pNum].TryGetModPlayer(out DodgerollPlayer dp)) dp.InstinctDodged();
+					if (Main.player[pNum].TryGetModPlayer(out modPlayer)) modPlayer.roll.InstinctDodged();
 					break;
 				default:
 					Logger.WarnFormat("Dodgeroll: Unknown Message type: {0}", msgType);
