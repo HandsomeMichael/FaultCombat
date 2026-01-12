@@ -1,0 +1,39 @@
+Vanilla
+
+aglet = dodging attack grant short swiftness buff
+anklet = dodging attack grant short attack speed buff
+lucky horseshoe = Small chance to grant perfect dodgeroll regardless of timing
+Magiluminescence = Small chance to roll without consuming stamina
+Shoespikes = Increased roll speed
+Climbing claws = Increased roll speed
+Tabi = Increased roll speed
+Black belt = Grants instinct dodgeroll
+Cobalt shield = rolling bash nearby enemies
+Eye of golem = Increase perfect dodge threshold
+Flesh Knuckles = punch nearby enemies on sucess dodge
+Frozen shield = Freezes enemies on perfect dodgeroll
+Hero shield = Increase stamina regen by 1/s
+Soaring insignia = 
+Brain of confusion = 
+Worm scarf =
+Shield of cthulhu =
+
+Star Clock / Bee Cloak / Star veil / Stinger necklace / Honey comb / Panic necklace / Sweetheart Necklace = Also applies on perfect dodgeroll
+Cross necklace = Increase rolling time
+
+======= Calamity mod ====
+
+Abaddon = On perfect dodgeroll inflict lasting brimstone flames to nearby enemy
+Abysall mirror = perfect dodgeroll grant insta stealth for 3 seconds
+Calamity = Grant immortality on perfect dodgeroll
+Amalgamated brain = Also applies on perfect dodgeroll
+Bloody worm scarf = Perfect dodgeroll reduce bleeding and poison
+Blunder Booster = Using booster dash regenerate some stamina
+Coin of deceit = Reduce stamina usage of dodgeroll on max stealth
+Dark Matter Sheath = Half stamina usage of dodgeroll on max stealth
+Badge of bravery = Sucessfull dodgeroll grant defensive buff
+Deadshoot Brooch = Guarantee critical hit after perfect dodgeroll for a second
+Dimensional soul artifact = Reduce stamina regen rate
+Eclipse mirror = 
+
+

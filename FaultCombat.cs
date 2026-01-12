@@ -35,8 +35,8 @@ namespace FaultCombat
 		// current only does dodge, later i would problaby add parry , cancel dodge, cancel dash, cancel item use , throw weapon 
 		public enum MessageType : byte
 		{
-			FuckingDodge, FuckingDodgeServer,
-			InstinctDodged, InstinctDodgedServer,
+			Dodge, DodgeServer,
+			AutoDodge, AutoDodgeServer,
 			Stagger,StaggerServer,
 			Block,BlockServer,
 			Throw,ThrowServer
@@ -49,16 +49,16 @@ namespace FaultCombat
             switch (msgType)
 			{
 				// server be like : hmm i should send all ts to other client except for you again
-				case MessageType.FuckingDodgeServer:
+				case MessageType.DodgeServer:
 					if (whoAmI != 255)
 					{
 						var velocity = reader.ReadVector2();
 
-						// does the server handle shit ? fuck no
-						if (Main.player[whoAmI].TryGetModPlayer(out modPlayer)) modPlayer.roll.ApplyBoost(modPlayer.Player,velocity);
+						// does the server handle shit ? idk
+						if (Main.player[whoAmI].TryGetModPlayer(out modPlayer)) modPlayer.InitiateRoll(velocity);
 
 						ModPacket modPacket = GetPacket();
-						modPacket.Write((byte)MessageType.FuckingDodge);
+						modPacket.Write((byte)MessageType.Dodge);
 						modPacket.Write((byte)whoAmI);
 						modPacket.WriteVector2(velocity);
 						modPacket.Send(-1, whoAmI);
@@ -69,7 +69,7 @@ namespace FaultCombat
 					}
 					break;
 				// client be like : uhhhh. okay
-				case MessageType.FuckingDodge:
+				case MessageType.Dodge:
 				
 					byte playerNumber = reader.ReadByte();
 					var boost = reader.ReadVector2();
@@ -79,11 +79,11 @@ namespace FaultCombat
 					break;
 
 				//sync instinct dodge
-				case MessageType.InstinctDodgedServer:
+				case MessageType.AutoDodgeServer:
 					if (whoAmI != 255)
 					{
 						ModPacket modPacket = GetPacket();
-						modPacket.Write((byte)MessageType.FuckingDodge);
+						modPacket.Write((byte)MessageType.AutoDodge);
 						modPacket.Write((byte)whoAmI);
 						modPacket.Send(-1, whoAmI);
 					}
@@ -93,9 +93,9 @@ namespace FaultCombat
 					}
 					break;
 
-				case MessageType.InstinctDodged:
+				case MessageType.AutoDodge:
 					int pNum = reader.ReadByte();
-					if (Main.player[pNum].TryGetModPlayer(out modPlayer)) modPlayer.roll.InstinctDodged();
+					if (Main.player[pNum].TryGetModPlayer(out modPlayer)) modPlayer.InitiateAutoRoll();
 					break;
 				default:
 					Logger.WarnFormat("Dodgeroll: Unknown Message type: {0}", msgType);
