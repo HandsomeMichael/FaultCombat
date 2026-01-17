@@ -16,17 +16,18 @@ namespace FaultCombat;
 public class FaultPlayer : ModPlayer
 {
     // Base speeds
-    public int BaseRollTime => 25;
-    public int BaseRollSpeed => 12;
-    public int BaseRollCooldown => 84;
-    public float BaseRollCost => 5f;
-    public float BaseStaminaRegen => 4f;
-    public float BaseMaxStamina => 5f;
-    public int BasePerfectDodgeWindow => 5;
+    public int BaseRollTime => FaultConfig.Instance.RollTime;
+    public float BaseRollSpeed => FaultConfig.Instance.RollSpeed;
+    public int BaseRollCooldown => FaultConfig.Instance.RollCooldown;
+    public float BaseRollCost => FaultConfig.Instance.RollCost;
+    public float BaseStaminaRegen => FaultConfig.Instance.StaminaRegenRate;
+    public float BaseMaxStamina => FaultConfig.Instance.StaminaBase;
+    public int BasePerfectDodgeWindow => 4;
 
     // Dodge properties
     public int rollTime;
     public int staminaCooldown;
+    public int staminaCooldownMax;
     public float stamina;
     public bool dodgedSomething;
     public bool autoRoll;
@@ -42,8 +43,18 @@ public class FaultPlayer : ModPlayer
     public float statRollTime;
     public float statRollSpeed;
     public float statRollCooldown;
-    public int statStaminaRegen;
+    public float statStaminaRegen;
     public float statMaxStamina;
+
+    // Nature power
+    public bool powerPalm;
+    public bool powerCorrupt;
+    public bool powerBoreal;
+    public bool powerMahogany;
+    public bool powerNature;
+    public bool powerAsh;
+
+    // static shit
 
     public void DepleteStamina(float amount)
     {
@@ -77,10 +88,11 @@ public class FaultPlayer : ModPlayer
     {
         statRollTime = 1f;
         statRollSpeed = 1f;
+        statRollCooldown = 1f;
         statStaminaRegen = 0;
     }
 
-    public bool RollAvailable() => BaseRollCost >= stamina; 
+    public bool RollAvailable() => stamina >= BaseRollCost; 
     public bool IsRolling => rollTime > 0;
 
     public override void ProcessTriggers(TriggersSet triggersSet)
@@ -92,7 +104,7 @@ public class FaultPlayer : ModPlayer
         {
             if (!RollAvailable())
             {
-                SoundEngine.PlaySound(new SoundStyle("DodgerollClamity/Sounds/NoRoll"), Player.Center);
+                SoundEngine.PlaySound(new SoundStyle("FaultCombat/Sounds/NoRoll"), Player.Center);
                 // DodgerollMeterUISystem.NotEnoughStamina();
                 return;
             }
@@ -100,6 +112,13 @@ public class FaultPlayer : ModPlayer
             // Main.NewText("Local client dodged");
             Vector2 defaultDirection = new Vector2(Player.direction, 0);
             Vector2 velocity = triggersSet.DirectionsRaw.SafeNormalize(defaultDirection) * GetRollSpeed();
+
+            // direction = triggersSet.DirectionsRaw.X == 0 ? Player.direction == 1 : (int)triggersSet.DirectionsRaw.X == 1;
+            if (velocity.X == 0)
+            {
+                // have very little direction boost
+                velocity.X = ( triggersSet.DirectionsRaw.X == 0 ? Player.direction : (int)triggersSet.DirectionsRaw.X ) * 0.01f;
+            }
 
             InitiateRoll(velocity);
 
@@ -147,13 +166,19 @@ public class FaultPlayer : ModPlayer
 
     public void InitiateAutoRoll()
     {
+        direction = Player.direction == 1;
         DepleteStamina(BaseRollCost);
 
         rollTime = GetRollTime();
         dodgedSomething = true;
 
         if (!Main.dedServ) SoundEngine.PlaySound(new SoundStyle("FaultCombat/Sounds/Roll" + Main.rand.Next(1, 4)
-        ).WithVolumeScale(0.5f).WithPitchOffset(Main.rand.NextFloat(0.9f, 1.1f)), Player.Center);
+        ).WithVolumeScale(1f).WithPitchOffset(Main.rand.NextFloat(1.1f, 1.2f)), Player.Center);
+    }
+
+    public override void PostUpdateBuffs()
+    {
+        
     }
 
     public override void PostUpdate()
@@ -172,34 +197,66 @@ public class FaultPlayer : ModPlayer
     }
     public override void PreUpdate()
     {
+        // if (rollTimeMax > 0)
+        // {
+        //     rollTime++;
+        //     if (rollTime >= rollTimeMax)
+        //     {
+        //         float rollCD = BaseRollCooldown;
+        //         staminaCooldownMax = (int)(rollCD * statRollCooldown);
+
+        //         // reset rotation
+        //         Player.fullRotationOrigin = Player.Center - Player.position;
+        //         Player.fullRotation = 0f;
+
+        //         rollTime = 0;
+        //         rollTimeMax = 0;
+        //     }
+        // }
         if (rollTime > 0)
         {
             rollTime--;
-            if (rollTime == 0)
+            if (rollTime <= 0)
             {
                 float rollCD = BaseRollCooldown;
-                staminaCooldown = (int)(rollCD * statRollCooldown);
+                staminaCooldownMax = (int)(rollCD * statRollCooldown);
 
                 // reset rotation
                 Player.fullRotationOrigin = Player.Center - Player.position;
                 Player.fullRotation = 0f;
             }
         }
-
-        if (staminaCooldown > 0) staminaCooldown--;
         else
         {
-            stamina = Math.Min(GetMaxStamina(),stamina + BaseStaminaRegen + statStaminaRegen);
+            if (staminaCooldownMax > 0)
+            {
+                staminaCooldown++;
+                if (staminaCooldown >= staminaCooldownMax)
+                {
+                    staminaCooldown = 0;
+                    staminaCooldownMax = 0;
+                }
+
+                Main.NewText("Cooldowning");
+            }
+            else
+            {
+                stamina = Math.Min(GetMaxStamina(),stamina + (( BaseStaminaRegen + statStaminaRegen ) / 60) );
+            }
         }
 
+        Main.NewText("player stamina : "+stamina);
 
-        // if (staminaTimer > 0) staminaTimer--;
     }
 
     public bool IsPerfectDodge()
     {
-        int deltaDodge = GetRollCooldown() - staminaCooldown;
-        return deltaDodge <= BasePerfectDodgeWindow;
+        return (GetRollTime() - rollTime) <= BasePerfectDodgeWindow;
+
+        // return rollTimeMax > 0 && rollTime <= BasePerfectDodgeWindow;
+
+        // int deltaDodge = GetRollCooldown() - staminaCooldown;
+        // return deltaDodge <= BasePerfectDodgeWindow;
     }
 
     public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
@@ -217,7 +274,7 @@ public class FaultPlayer : ModPlayer
 
     public override bool FreeDodge(Player.HurtInfo info)
     {
-        if (!IsRolling && autoRoll && stamina == GetMaxStamina() && (info.Damage > Player.statLife || Player.statLife <= 50) && !Player.CCed)
+        if (!IsRolling && autoRoll && RollAvailable() && (info.Damage > Player.statLife || Player.statLife <= 15) && !Player.CCed)
         {
             if (FaultConfigClient.Instance.ShowDodgeIndicator)
             {
@@ -255,10 +312,29 @@ public class FaultPlayer : ModPlayer
         }
         return base.ImmuneTo(damageSource, cooldownCounter, dodgeable);
     }
-
     public void GiveDodgeBonus(PlayerDeathReason damageSource)
     {
-        
+        bool perfectDodge = IsPerfectDodge();
+        var heldClass = Player.HeldItem.DamageType;
+
+        if (perfectDodge)
+        {
+
+            if(!Main.dedServ && Player.whoAmI == Main.myPlayer)
+            {
+                // FaultPlayerAura.Aura();
+                SoundEngine.PlaySound(new SoundStyle("FaultCombat/Sounds/Anime").WithVolumeScale(0.5f), Player.Center);
+            }
+
+            // if (heldClass.CountsAsClass(DamageClass.Melee))
+            // {
+                
+            // }
+            // else if (heldClass.CountsAsClass(DamageClass.Ranged))
+            // {
+                
+            // }
+        }
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

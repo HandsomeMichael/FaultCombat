@@ -39,6 +39,7 @@ namespace FaultCombat
 			AutoDodge, AutoDodgeServer,
 			Stagger,StaggerServer,
 			Block,BlockServer,
+			StopBlock,StopBlockServer,
 			Throw,ThrowServer
 		}
 		

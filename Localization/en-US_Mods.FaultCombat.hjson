@@ -1,12 +1,155 @@
+Tooltips: {
+	StaminaRegen: Increase stamina regeneration by {0}/s
+	StaminaMax: Increase maximum stamina by {0}
+	StaminaOnHit: Restore 50% of stamina
+	RollPerfect: "{0} on perfect dodgeroll"
+	RollCost: Increase stamina cost of dodgeroll
+	RollPowerup: Upon eating, allowing you to grant perfect dodgeroll
+}
 
-Tooltips: 
-{
-    StaminaRegen: "Increase stamina regeneration by {0}/s"
-    StaminaMax: "Increase maximum stamina by {0}"
-    StaminaOnHit:"Restore 50% of stamina"
+Keybinds: {
+	Dodgeroll.DisplayName: Dodgeroll
+	Block.DisplayName: Block
+}
 
-    RollPerfect: "{0} on perfect dodgeroll"
-    RollCost: "Increase stamina cost of dodgeroll"
-    RollPowerup: "Upon eating, allowing you to grant perfect dodgeroll"
-    
+Projectiles.Slash.DisplayName: Slash
+
+Configs: {
+	FaultConfig: {
+		DisplayName: Fault Config
+
+		Headers: {
+			Dodgeroll: Dodgeroll Header
+			Stamina: Stamina Header
+			Balances: Balances Header
+		}
+
+		RollEnable: {
+			Label: Roll Enable
+			Tooltip: ""
+		}
+
+		RollCost: {
+			Label: Roll Cost
+			Tooltip: ""
+		}
+
+		RollCooldown: {
+			Label: Roll Cooldown
+			Tooltip: ""
+		}
+
+		RollTime: {
+			Label: Roll Time
+			Tooltip: ""
+		}
+
+		RollSpeed: {
+			Label: Roll Speed
+			Tooltip: ""
+		}
+
+		RollUseItem: {
+			Label: Roll Use Item
+			Tooltip: ""
+		}
+
+		RollCancelUseItem: {
+			Label: Roll Cancel Use Item
+			Tooltip: ""
+		}
+
+		RollPerfectTriggerHurt: {
+			Label: Roll Perfect Trigger Hurt
+			Tooltip: ""
+		}
+
+		StaminaBase: {
+			Label: Stamina Base
+			Tooltip: ""
+		}
+
+		StaminaRegenRate: {
+			Label: Stamina Regen Rate
+			Tooltip: ""
+		}
+
+		DashRequireStamina: {
+			Label: Dash Require Stamina
+			Tooltip: ""
+		}
+	}
+
+	FaultConfigClient: {
+		DisplayName: Fault Config Client
+
+		Headers: {
+			Gameplay: Gameplay Header
+			UI: U I Header
+		}
+
+		AccesoryAutoRoll: {
+			Label: Accesory Auto Roll
+			Tooltip: ""
+		}
+
+		HorizontalRollOnly: {
+			Label: Horizontal Roll Only
+			Tooltip: ""
+		}
+
+		ShowDodgeIndicator: {
+			Label: Show Dodge Indicator
+			Tooltip: ""
+		}
+
+		StaminaBarShow: {
+			Label: Stamina Bar Show
+			Tooltip: ""
+		}
+
+		StaminaBarCooldown: {
+			Label: Stamina Bar Cooldown
+			Tooltip: ""
+		}
+
+		StaminaBarPosition: {
+			Label: Stamina Bar Position
+			Tooltip: ""
+		}
+
+		StaminaBarOffset: {
+			Label: Stamina Bar Offset
+			Tooltip: ""
+		}
+
+		StaminaBarOpacity: {
+			Label: Stamina Bar Opacity
+			Tooltip: ""
+		}
+	}
+
+	StaminaBarPos: {
+		Tooltip: ""
+
+		TOP: {
+			Label: T O P
+			Tooltip: ""
+		}
+
+		BOTTOM: {
+			Label: B O T T O M
+			Tooltip: ""
+		}
+
+		LEFT: {
+			Label: L E F T
+			Tooltip: ""
+		}
+
+		RIGHT: {
+			Label: R I G H T
+			Tooltip: ""
+		}
+	}
 }

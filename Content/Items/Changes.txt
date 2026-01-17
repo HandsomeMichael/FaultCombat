@@ -1,18 +1,44 @@
 Vanilla
 
-aglet = dodging attack grant short swiftness buff
-anklet = dodging attack grant short attack speed buff
-lucky horseshoe = Small chance to grant perfect dodgeroll regardless of timing
-Magiluminescence = Small chance to roll without consuming stamina
-Shoespikes = Increased roll speed
-Climbing claws = Increased roll speed
-Tabi = Increased roll speed
-Black belt = Grants instinct dodgeroll
-Cobalt shield = rolling bash nearby enemies
-Eye of golem = Increase perfect dodge threshold
-Flesh Knuckles = punch nearby enemies on sucess dodge
-Frozen shield = Freezes enemies on perfect dodgeroll
-Hero shield = Increase stamina regen by 1/s
+aglet
+- dodging attack grant short swiftness buff
+
+anklet 
+- dodging attack grant short attack speed buff
+
+lucky horseshoe 
+- Small chance to grant perfect dodgeroll regardless of timing
+
+Magiluminescence
+- Small chance to roll without consuming stamina
+
+Shoespikes
+- Increased roll speed
+
+Climbing claws
+- Increased roll speed
+
+Tabi
+- Increased roll speed
+
+Black belt 
+- Grants instinct dodgeroll
+
+Cobalt shield 
+- rolling bash nearby enemies
+
+Eye of golem 
+- Increase perfect dodge threshold
+
+Flesh Knuckles 
+- punch nearby enemies on sucess dodge
+
+Frozen shield 
+- Freezes enemies on perfect dodgeroll
+
+Hero shield 
+- Increase stamina regen by 1/s
+
 Soaring insignia = 
 Brain of confusion = 
 Worm scarf =
@@ -23,17 +49,246 @@ Cross necklace = Increase rolling time
 
 ======= Calamity mod ====
 
-Abaddon = On perfect dodgeroll inflict lasting brimstone flames to nearby enemy
-Abysall mirror = perfect dodgeroll grant insta stealth for 3 seconds
-Calamity = Grant immortality on perfect dodgeroll
-Amalgamated brain = Also applies on perfect dodgeroll
-Bloody worm scarf = Perfect dodgeroll reduce bleeding and poison
-Blunder Booster = Using booster dash regenerate some stamina
-Coin of deceit = Reduce stamina usage of dodgeroll on max stealth
-Dark Matter Sheath = Half stamina usage of dodgeroll on max stealth
-Badge of bravery = Sucessfull dodgeroll grant defensive buff
-Deadshoot Brooch = Guarantee critical hit after perfect dodgeroll for a second
-Dimensional soul artifact = Reduce stamina regen rate
-Eclipse mirror = 
+Abaddon 
+- On perfect dodgeroll cleans brimstone flames debuff
 
+Abysall mirror
+- perfect dodgeroll grant instant stealth for 3 seconds
+
+Calamity
+- Grant immortality for 3 seconds on perfect dodgeroll
+
+Amalgamated brain
+- Also applies on perfect dodgeroll
+
+Bloody worm scarf
+- Imbue attack with bleeding on perfect dodgeroll
+
+Blunder Booster 
+- Using booster dash regenerate some stamina
+
+Coin of deceit
+- Reduce stamina usage of dodgeroll on max stealth
+
+Dark Matter Sheath
+- Regenerate stamina faster on max stealth
+
+Dark Sun Ring
+- Attack prevent enemies to dodgeroll
+
+Badge of bravery
+- Sucessfull dodgeroll grant defensive buff
+
+Counter scarf
+- Mark nearest enemy on perfect dodgeroll
+
+Deadshoot Brooch
+- Guarantee critical hit on perfect dodgeroll
+
+Dimensional soul artifact
+- Reduce stamina regen rate
+
+Eclipse mirror
+- Grant stealth on sucessfull dodgeroll
+
+Eldtrich Soul Artifact
+- Increase stamina by 1
+
+Elemental Gauntlet
+- Improves perfect dodge bonus
+
+Elemental Quiver
+- Improves perfect dodge bonus
+
+Ethereal Talisman
+- Improve perfect dodge bonus
+
+Evasion Scarf
+- Mark nearest enemy on perfect dodgeroll
+
+Flost Flare
+- On snow biome , increase stamina regeneration
+
+Glove of precision
+- Precise damage grant 5% more damage
+
+Hallowed Rune
+- Hallowed Regen also grant stamina regeneration
+
+Heart of Darkness
+- Highly increase stamina regeneration on rage
+
+Leviathan Ambergris
+- Dodgeroll imbued with water
+
+Necklace of Vexation
+- Rolling reduce some debuff
+
+The Amalgam
+- Rolling inflict confusion, reduce debuff and buff user
+
+The Bee
+- Sucessfull dodge summons bee
+
+Warbanner of the sun
+- 
+
+The transformer , Hide of Astrum Deus , Frost Barrier, Craw Carapace , Deific Amulet , Void of calamity , Yharim Gift , Amidias Spark, Alchemical Flask, Rampart of Deities
+- Also applies on perfect dodgeroll
+
+Affliction
+- Increase stamina by 1
+
+Asgard valor
+
+Asgardian Aegis
+
+Elysian Aegis
+
+Bloodflare Core
+- Recover 4 defense each sucessfull dodge
+
+Draedon Heart
+- Regenerate 1 stamina each 100 health lost
+
+Infected Jewel
+- Each debuff increase stamina regeneration
+
+Laudanum
+- Grant different buff on perfect dodgeroll
+
+Occult Skull Crown
+- Adrenaline no longer disables dodgeroll
+- Rage heavily increase stamina regeneration
+- Grant different buff on perfect dodgeroll
+
+Permafrost Concoction
+- Cant roll for 10 seconds after reviving
+
+Phantomic Artifact
+- Extends perfect dodge buffs
+
+Profaned Soul Crystal
+- Inflames your dodgeroll
+
+Radiance
+- Increase stamina by 3
+- Increase stamina regeneration
+
+Regenator
+- Increase stamina by 2
+- Unequiping will drain stamina for 10s
+
+Shattered Community
+- Grant rage and adrenaline on perfect dodgeroll
+
+Shield of Ocean
+- Increase stamina by 1
+
+Spirit Glyph
+- Increase stamina by 1
+
+The Absorber
+- Rolling reduces debuff duration
+
+The Camper
+- Increase stamina regeneration when standing still
+
+The Community
+- Increase stamina by 1/2/3 [post anahita, post lunatic cultist, post moonlord]
+
+The Evolution
+- Deletes nearby projectiles on perfect dodgeroll ( 10s cooldown )
+
+The Sponge
+- Restore some barrier on perfect dodgeroll
+
+Trinket of Chi
+- Increase stamina regeneration
+
+Ursa Sergeant
+- Increase stamina regeneration at lower health
+
+Ambrosial Ampoule
+- Increase stamina by 1
+
+Crown Jewel
+- Increase stamina regeneration
+
+== Movements ==
+
+Aero Stone
+- Grant 10% flight time on perfect dodgeroll
+
+Angel treads
+- Increase stamina by 1
+
+Seraph Tracerss
+- Increase stamina by 3
+
+Celestial tracers
+- Increase stamina by 2
+
+Aquatic Emblem
+- Increased rolling speed in water
+
+Ascendant Insignia
+- Extend infinite flight on perfect dodgeroll
+
+Deep diver
+- Increased rolling speed in water
+
+Grand Gelatin
+- Grant infinite stamina for 2 seconds
+
+Harpy Ring
+- Increase rolling speed mid air
+
+Iron boots
+- Reduce roll speed, but increase roll time
+
+Old Duke's Scales
+- Applies to fault's combat roll
+
+Shield of the Ocean
+- Rolling bash nearby enemy
+
+Silva Wings
+- Increase stamina by 3
+- Increase stamina regeneration
+
+Wings of Rebirth
+- Increase stamina by 4
+
+Wulfrum Acrobatics Pack
+- Automatically dodgeroll on fatal fall damage
+
+Vanilla : Fairy Boots
+- Each fairies grants additional stamina regen rate
+
+======= ARMOR SET BONUS =======
+
+Shadow armor
+- Increase stamina by 1
+
+Crimson armor
+- Increase stamina regenrate
+
+Calamity Gladiator armor
+- After perfect dodge, grant 25% attack speed for 5s
+
+Gi
+- Increase stamina by 3
+- Increase stamina regeneration
+
+Mining armor
+- Reduce dodgeroll cooldown
+
+Mythril
+- Roll is imbued with mythirl flares
+
+Adamantite
+- Roll is imbued with adamantite
+
+=================================== Items ===================================
 

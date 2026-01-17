@@ -60,12 +60,12 @@ namespace FaultCombat
         public bool RollEnable { get; set; }
 
         [Slider]
-        [DefaultValue(5)]
+        [DefaultValue(5f)]
         public float RollCost { get; set; }
 
         [Slider]
         [DefaultValue(85)]
-        public float RollCooldown { get; set; }
+        public int RollCooldown { get; set; }
 
         [Slider]
         [DefaultValue(25)]
@@ -91,7 +91,7 @@ namespace FaultCombat
         public float StaminaBase { get; set; }
 
         [Slider]
-        [DefaultValue(0.4f)]
+        [DefaultValue(3.5f)]
         public float StaminaRegenRate { get; set; }
 
         [Header("Balances")]
