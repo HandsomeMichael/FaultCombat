@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace FaultCombat;
 
-public class FaultPlayer : ModPlayer
+public partial class FaultPlayer : ModPlayer
 {
     // Base speeds
     public int BaseRollTime => FaultConfig.Instance.RollTime;
@@ -34,28 +34,6 @@ public class FaultPlayer : ModPlayer
     public bool direction;
     public void SetRight() => direction = true;
     public void SetLeft() => direction = false;
-
-    // Buff
-    public byte dodgeBonusType;
-    public ushort dodgeBonusTimer;
-    
-    // Additive stats
-    public float statRollTime;
-    public float statRollSpeed;
-    public float statRollCooldown;
-    public float statStaminaRegen;
-    public float statMaxStamina;
-
-    // Nature power
-    public bool powerPalm;
-    public bool powerCorrupt;
-    public bool powerBoreal;
-    public bool powerMahogany;
-    public bool powerNature;
-    public bool powerAsh;
-
-    // static shit
-
     public void DepleteStamina(float amount)
     {
         stamina = Math.Max(0, stamina - amount);
@@ -83,13 +61,6 @@ public class FaultPlayer : ModPlayer
     public float GetDashCooldown()
     {
         return 0;
-    }
-    public override void ResetEffects()
-    {
-        statRollTime = 1f;
-        statRollSpeed = 1f;
-        statRollCooldown = 1f;
-        statStaminaRegen = 0;
     }
 
     public bool RollAvailable() => stamina >= BaseRollCost; 
@@ -311,30 +282,6 @@ public class FaultPlayer : ModPlayer
             return true;
         }
         return base.ImmuneTo(damageSource, cooldownCounter, dodgeable);
-    }
-    public void GiveDodgeBonus(PlayerDeathReason damageSource)
-    {
-        bool perfectDodge = IsPerfectDodge();
-        var heldClass = Player.HeldItem.DamageType;
-
-        if (perfectDodge)
-        {
-
-            if(!Main.dedServ && Player.whoAmI == Main.myPlayer)
-            {
-                // FaultPlayerAura.Aura();
-                SoundEngine.PlaySound(new SoundStyle("FaultCombat/Sounds/Anime").WithVolumeScale(0.5f), Player.Center);
-            }
-
-            // if (heldClass.CountsAsClass(DamageClass.Melee))
-            // {
-                
-            // }
-            // else if (heldClass.CountsAsClass(DamageClass.Ranged))
-            // {
-                
-            // }
-        }
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

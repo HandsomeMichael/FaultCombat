@@ -19,24 +19,36 @@ Configs: {
 		DisplayName: Fault Config
 
 		Headers: {
-			Dodgeroll: Dodgeroll Header
-			Stamina: Stamina Header
-			Balances: Balances Header
+			Dodgeroll: Dodgeroll Settings
+			Stamina: Stamina Settings
+			Balances: Balances Settings
 		}
 
 		RollEnable: {
 			Label: Roll Enable
-			Tooltip: ""
+			Tooltip:
+				'''
+				Enable player dodgeroll ability using a specified keybind
+				Dodgeroll use stamina has full iframe and grant bonus on perfectly time dodge
+				'''
 		}
 
 		RollCost: {
 			Label: Roll Cost
-			Tooltip: ""
+			Tooltip:
+				'''
+				Stamina cost for using dodgeroll ability
+				[ Default to 5 ]
+				'''
 		}
 
 		RollCooldown: {
 			Label: Roll Cooldown
-			Tooltip: ""
+			Tooltip:
+				'''
+				Cooldown before stamina regenerates after using dodgeroll ability
+				[ Default to 85 tick] / 60 tick is 1 second
+				'''
 		}
 
 		RollTime: {

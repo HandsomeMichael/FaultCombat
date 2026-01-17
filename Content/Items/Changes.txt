@@ -6,6 +6,9 @@ aglet
 anklet 
 - dodging attack grant short attack speed buff
 
+lightning boots
+- decrease roll cooldown by 10%
+
 lucky horseshoe 
 - Small chance to grant perfect dodgeroll regardless of timing
 
