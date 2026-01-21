@@ -22,7 +22,7 @@ public partial class FaultPlayer : ModPlayer
     public float BaseRollCost => FaultConfig.Instance.RollCost;
     public float BaseStaminaRegen => FaultConfig.Instance.StaminaRegenRate;
     public float BaseMaxStamina => FaultConfig.Instance.StaminaBase;
-    public int BasePerfectDodgeWindow => 4;
+    public int BasePerfectDodgeWindow => 3;
 
     // Dodge properties
     public int rollTime;
@@ -34,10 +34,6 @@ public partial class FaultPlayer : ModPlayer
     public bool direction;
     public void SetRight() => direction = true;
     public void SetLeft() => direction = false;
-    public void DepleteStamina(float amount)
-    {
-        stamina = Math.Max(0, stamina - amount);
-    }
 
     public float GetMaxStamina()
     {
@@ -208,7 +204,7 @@ public partial class FaultPlayer : ModPlayer
                     staminaCooldownMax = 0;
                 }
 
-                Main.NewText("Cooldowning");
+                //Main.NewText("Cooldowning");
             }
             else
             {
@@ -216,20 +212,9 @@ public partial class FaultPlayer : ModPlayer
             }
         }
 
-        Main.NewText("player stamina : "+stamina);
+        //Main.NewText("player stamina : "+stamina);
 
     }
-
-    public bool IsPerfectDodge()
-    {
-        return (GetRollTime() - rollTime) <= BasePerfectDodgeWindow;
-
-        // return rollTimeMax > 0 && rollTime <= BasePerfectDodgeWindow;
-
-        // int deltaDodge = GetRollCooldown() - staminaCooldown;
-        // return deltaDodge <= BasePerfectDodgeWindow;
-    }
-
     public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
     {
         if (IsRolling && IsPerfectDodge() && damageSource.IsOther(DeathReasonOtherID.FallDamage))
@@ -245,7 +230,7 @@ public partial class FaultPlayer : ModPlayer
 
     public override bool FreeDodge(Player.HurtInfo info)
     {
-        if (!IsRolling && autoRoll && RollAvailable() && (info.Damage > Player.statLife || Player.statLife <= 15) && !Player.CCed)
+        if (FaultConfigClient.Instance.AccesoryAutoRoll && !IsRolling && autoRoll && RollAvailable() && (info.Damage > Player.statLife * (FaultConfigClient.Instance.AccesoryAutoRollPercentage / 100f) || Player.statLife <= 15) && !Player.CCed)
         {
             if (FaultConfigClient.Instance.ShowDodgeIndicator)
             {

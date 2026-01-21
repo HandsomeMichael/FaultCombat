@@ -13,6 +13,9 @@ namespace FaultCombat
         [DefaultValue(true)]
         public bool AccesoryAutoRoll { get; set; }
 
+        [DefaultValue(100)]
+        public int AccesoryAutoRollPercentage { get; set; }
+
         [DefaultValue(false)]
         public bool HorizontalRollOnly { get; set; }
 
@@ -24,10 +27,13 @@ namespace FaultCombat
         [DefaultValue(true)]
         public bool StaminaBarShow { get; set; }
 
+        [DefaultValue(false)]
+        public bool StaminaBarNumber { get; set; }
+
         [DefaultValue(true)]
         public bool StaminaBarCooldown { get; set; }
 
-        [DefaultValue(StaminaBarPos.TOP)]
+        [DefaultValue(StaminaBarPos.Top)]
         public StaminaBarPos StaminaBarPosition { get; set; }
 
         [Slider]
@@ -41,10 +47,10 @@ namespace FaultCombat
 
         public enum StaminaBarPos
         {
-            TOP,
-            BOTTOM,
-            LEFT,
-            RIGHT
+            Top,
+            Bottom,
+            Left,
+            Right
         }
 
     }
@@ -64,7 +70,7 @@ namespace FaultCombat
         public float RollCost { get; set; }
 
         [Slider]
-        [DefaultValue(85)]
+        [DefaultValue(50)]
         public int RollCooldown { get; set; }
 
         [Slider]
@@ -93,6 +99,11 @@ namespace FaultCombat
         [Slider]
         [DefaultValue(3.5f)]
         public float StaminaRegenRate { get; set; }
+
+        [Header("Enemies")]
+        [DefaultValue(2)]
+        public int EnemyRollChance { get; set; }
+
 
         [Header("Balances")]
 

@@ -1,0 +1,157 @@
+Stamina points
+- player have stamina points to use on skills or dodgeroll
+
+Dodgeroll
+- player can initiate dodgeroll
+- player can get "perfect dodgeroll" on 4 frame precise dodge
+- perfect dodgeroll grant few buffs
+- dodge accesories reworked to instead amplify dodgeroll
+
+Defense posture
+- defense are now more effective
+- enemy and player have posture that can be broken
+- when posture is broken, defense drop to 0
+- posture fully recharged in 8 seconds after being broken
+- player posture can regenerate when not being hit
+
+EGO resources
+- player can have ego resources
+- critical hit builds up a stack of resources based on damage type
+- regular hit maintains ego resources
+- if player hasnt hit anything in 2 seconds, deplete ego resources
+
+Ego List :
+
+Wrath > Melee
+Gloom > Ranger
+Pride > Magic
+Sloth > Summoner
+Envoy > Rogue
+Limbo > Generic / Accesories
+
+Skill attack
+- individual weapon can be applied with skill attack
+- skill use ego resources, scaled by weapon rarity
+- only 1 skill can be active at a time and each have 15 seconds cooldown
+
+Normal skill scrolls :
+
+Limbus
+- distribute ego resources
+- if its already balanced, give 1 free ego resource
+- use 3 limbo
+
+Sueno impossible
+- Grant speed and scale weapon damage on speed
+- Last for 15 seconds
+- use 6 gloom
+
+Revenge
+- Increased damage on the enemy that last hit you, also marked them
+- Last for 15 seconds
+- use 4 wrath , 4 gloom
+
+Broken Wings
+- Broke your wings, but increases damage by 25%
+- Last for 10 seconds
+- use 6 wrath, and require wing equipped
+
+Throw
+- Throw your weapon, dealing damage and may auto shoot
+- use 2 pride
+
+Forgivement
+- On hit, turns enemy debuff into direct damage
+- Last for 15 seconds
+- use 6 pride
+
+Captain
+- Chain nearby enemy, share 15% of damage to each
+
+Vogel
+- Absorb bad effects into your own weapons for 5 second
+
+=== Extreme skills ===
+
+Hepola ello
+- flip a coin 3 times
+- On sucess, summons excalibur to assist you
+- On fail, launch hostile swordbeam towards the player
+- Excalibur last for 30 seconds
+- use base of 6 pride
+
+Forever Hero
+- Flips a coin
+- Can only be used on full health
+- On sucess, grant 100% damage increase for 30 seconds
+- On fail, stab yourself , break posture, halfen health
+- uses all ego resources to increase sucess rate and prevent regen for 1 minute
+
+Ideality
+- Flip a coin 3 times
+- On sucess grant increased wing stat
+- On fail reduce damage by 5%
+- Last for 1 minute
+- uses 8 sloth
+
+Compass
+- Flip a coin on each enemy
+- On sucessfull , lock them in place and break their posture
+- On fail, heal the enemy
+- use 4 pride
+
+Duelist
+- Hitting enemy flip a coin
+- On sucess, break their posture
+- On fail, berak your posture
+- Last for 3 seconds after a strike has been made
+- use 4 gloom
+
+Furioso
+- Flip a coin 10 times
+- On sucess slashesh every enemy
+- On fail lightly tap them
+- use 15 wrath
+
+Gone angels
+- Flip a coin
+- Convert all ego resources into stat boost
+
+A Nobody
+- creates a clone of yourself
+
+Gamble
+- flip a coin
+
+Walphurgistnacht
+- cost no mana
+
+Tian tian
+- causes the day to continuosly skips
+- when the night comes grant increased damage
+- when the day comes grant increased attack speed
+
+Severing
+- executes enemy below 5% health
+
+Lament
+- you cant die as long as you swing your sword for 10 seconds
+
+Violet Passage
+- summon a bow that switches target between enemy and yourself
+
+Geschelshaft
+- Lock ego resources and prevent the usage of it for 1 minute 
+- Cooldown for 2 minute
+
+Scientific witchery
+- flip a coin
+- on sucessfull deal 50% damage of the enemy health
+- failed flip will instead just kill you
+- consumes all of ego resources to increase sucess rate
+
+Broken wings
+- flip a coin
+
+Heaven pierce her
+- Creates a gigadrill

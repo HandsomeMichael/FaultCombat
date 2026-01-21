@@ -12,6 +12,7 @@ namespace FaultCombat.Items;
 public abstract class SingleItemPatch : GlobalItem
 {
     public virtual int Id => ItemID.None;
+    public virtual bool AutoRoll => false;
     public override bool AppliesToEntity(Item entity, bool lateInstantiation)
     {
         return entity.type == Id;
@@ -22,12 +23,18 @@ public abstract class SingleItemPatch : GlobalItem
         if (player.TryGetModPlayer<FaultPlayer>(out var faultPlayer))
         {
             UpdatePlayer(faultPlayer);
+            
+            if (AutoRoll) faultPlayer.autoRoll = true;
         }
     }
 
     public virtual void UpdatePlayer(FaultPlayer faultPlayer) {}
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
+        if (AutoRoll)
+        {
+            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Autoroll Tooltip", "Grant 'instinct' dodgeroll upon fatal damage"));
+        }
         if (Tooltip != "")
         {
             tooltips.Add(new TooltipLine(Mod, "FaultCombat: Patch Tooltip", Tooltip));

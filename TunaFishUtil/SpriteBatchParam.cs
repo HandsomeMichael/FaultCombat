@@ -27,6 +27,18 @@ public record SpriteBatchParams
 			Effect = null,
 		};
 	}
+
+	public static SpriteBatchParams UIDefault {
+		get => new() {
+			SortMode = SpriteSortMode.Deferred,
+			BlendState = BlendState.AlphaBlend,
+			SamplerState = SamplerState.PointClamp,
+			DepthStencilState = DepthStencilState.None,
+			RasterizerState = RasterizerState.CullNone,
+			TransformMatrix = Main.UIScaleMatrix,
+			Effect = null,
+		};
+	}
 }
 
 public static class SpriteBatchParamsExtensions
@@ -42,6 +54,19 @@ public static class SpriteBatchParamsExtensions
 			Effect = GetEffect(sb)
 		};
 		sb.End();
+	}
+
+	public static void TakeSnapshot(this SpriteBatch sb, out SpriteBatchParams sbParams) 
+	{
+		sbParams = new SpriteBatchParams {
+			SortMode = GetSortMode(sb),
+			BlendState = GetBlendState(sb),
+			SamplerState = GetSamplerState(sb),
+			DepthStencilState = GetDepthStencilState(sb),
+			RasterizerState = GetRasterizerState(sb),
+			TransformMatrix = GetTransformMatrix(sb),
+			Effect = GetEffect(sb)
+		};
 	}
 
 	public static void Restart(this SpriteBatch sb, SpriteBatchParams sbParams) {

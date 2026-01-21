@@ -22,6 +22,7 @@ Configs: {
 			Dodgeroll: Dodgeroll Settings
 			Stamina: Stamina Settings
 			Balances: Balances Settings
+			Enemies: Enemies Header
 		}
 
 		RollEnable: {
@@ -90,6 +91,11 @@ Configs: {
 			Label: Dash Require Stamina
 			Tooltip: ""
 		}
+
+		EnemyRollChance: {
+			Label: Enemy Roll Chance
+			Tooltip: ""
+		}
 	}
 
 	FaultConfigClient: {
@@ -139,6 +145,16 @@ Configs: {
 			Label: Stamina Bar Opacity
 			Tooltip: ""
 		}
+
+		AccesoryAutoRollPercentage: {
+			Label: Accesory Auto Roll Percentage
+			Tooltip: ""
+		}
+
+		StaminaBarNumber: {
+			Label: Stamina Bar Number
+			Tooltip: ""
+		}
 	}
 
 	StaminaBarPos: {
@@ -163,5 +179,32 @@ Configs: {
 			Label: R I G H T
 			Tooltip: ""
 		}
+
+		Top: {
+			Label: Top
+			Tooltip: ""
+		}
+
+		Bottom: {
+			Label: Bottom
+			Tooltip: ""
+		}
+
+		Left: {
+			Label: Left
+			Tooltip: ""
+		}
+
+		Right: {
+			Label: Right
+			Tooltip: ""
+		}
+	}
+}
+
+Buffs: {
+	FastHandBuff: {
+		DisplayName: Fast Hand
+		Description: Increase attack speed by 20%
 	}
 }
