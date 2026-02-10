@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 
-namespace FaultCombat.Items;
+namespace FaultCombat.Content.Items;
 
 public class Aglet : SingleItemPatch
 {
@@ -32,6 +32,18 @@ public class LightningBoots : SingleItemPatch
         faultPlayer.statMaxStamina += 1;
     }
 }
+
+public class TerraBoots : SingleItemPatch
+{
+    public override int Id => ItemID.TerrasparkBoots;
+    public override string Tooltip => "Grant decreased roll cooldown by 10%\nIncrease max stamina by 2";
+    public override void UpdatePlayer(FaultPlayer faultPlayer)
+    {
+        faultPlayer.statRollCooldown -= 0.1f;
+        faultPlayer.statMaxStamina += 2;
+    }
+}
+
 
 public class SpectreBoots : SingleItemPatch
 {
@@ -84,15 +96,29 @@ public class EyeOfGolem : SingleItemPatch
     public override string Tooltip => "Increase perfect dodgeroll threshold";
 }
 
-public class FleshKnuckles : SingleItemPatch
+public class PutridScent : SingleItemPatch
 {
-    public override int Id => ItemID.FleshKnuckles;
-    public override string Tooltip => "Melee attacks restore 10% of lost stamina";
+    public override int Id => ItemID.PutridScent;
+    public override string Tooltip => "True melee attacks regenerates stamina";
+    public override void UpdatePlayer(FaultPlayer faultPlayer)
+    {
+        faultPlayer.putrid = true;
+    }
 }
 
-public class FrozenShield : SingleItemPatch
+public class AccesoryHurtEffects : MultipleItemPatch
 {
-    public override int Id => ItemID.FrozenShield;
-    public override string Tooltip => "Shield broke longer";
+    public override int[] Id => 
+    [ItemID.CrossNecklace,ItemID.StarVeil,ItemID.BeeCloak,
+    ItemID.HoneyComb,ItemID.PanicNecklace,ItemID.StarCloak,
+    ItemID.StingerNecklace,ItemID.SweetheartNecklace];
+    public override string Tooltip => "Also applies on [c/F6AE2A:perfect] dodgeroll";
 }
+
+// public class FrozenShield : SingleItemPatch
+// {
+//     public override int Id => ItemID.FrozenShield;
+//     public override string Tooltip => "Freeze nearby enemies when shield broke";
+// }
+
 

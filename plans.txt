@@ -7,12 +7,6 @@ Dodgeroll
 - perfect dodgeroll grant few buffs
 - dodge accesories reworked to instead amplify dodgeroll
 
-Defense posture
-- defense are now more effective
-- enemy and player have posture that can be broken
-- when posture is broken, defense drop to 0
-- posture fully recharged in 8 seconds after being broken
-- player posture can regenerate when not being hit
 
 EGO resources
 - player can have ego resources
@@ -29,6 +23,9 @@ Sloth > Summoner
 Envoy > Rogue
 Limbo > Generic / Accesories
 
+Each 100 damage dealt, transform into one ego resource
+
+
 Skill attack
 - individual weapon can be applied with skill attack
 - skill use ego resources, scaled by weapon rarity
@@ -43,7 +40,7 @@ Limbus
 
 Sueno impossible
 - Grant speed and scale weapon damage on speed
-- Last for 15 seconds
+- Last for 1 minute
 - use 6 gloom
 
 Revenge

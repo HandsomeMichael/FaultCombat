@@ -1,10 +1,27 @@
-Fault Combat : Ego and Sin 
+Fault Combat : Dodgeroll & Calamity
 
-This mod add new combat mechanics with calamity mod and thorium crossover
+This mod plans to add new combat mechanics with calamity mod and other major content mods if possible.
+Currently it only adds Dodgeroll with stamina
 
-- Dodgeroll
-- Blocking
-- Parry
-- Skills that use mana
+Vanilla and modded accesories now have extended abilities to the new mechanic
+This mod have a lot of options / config, so be sure to check that out if you feel like my balance are crap ( it is ) 
 
-Vanilla and modded accesories now have extended abilities to these new mechanics
+Credits :
+
+CalamityDevs > For making calamity mod open source for this project
+StormyTuna > I borrowed nightrein radial mask and SpriteBatchParams from TunaUtils
+Mirsario > without Terraria overhaul i wouldve never played tmod or add dodgeroll ngl
+
+Changelog :
+
+v.1.0
+
+- Added dodgeroll
+
+Plans :
+
+- Shielding mechanics
+- Activable Skills that scales
+
+
+ 

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace FaultCombat.Items;
+namespace FaultCombat.Content.Items;
 
 public class ArmorPatch : ModSystem
 {

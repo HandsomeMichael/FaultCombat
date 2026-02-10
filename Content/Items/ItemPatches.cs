@@ -7,10 +7,48 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FaultCombat.Items;
+namespace FaultCombat.Content.Items;
+
+public abstract class MultipleItemPatch : GlobalItem
+{
+    public virtual bool AfterEquipables => true;
+    public virtual int[] Id => [ItemID.None];
+    public override bool AppliesToEntity(Item entity, bool lateInstantiation) => Id.Contains(entity.type);
+
+    public override void UpdateEquip(Item item, Player player)
+    {
+        if (player.TryGetModPlayer<FaultPlayer>(out var faultPlayer))
+        {
+            UpdatePlayer(faultPlayer);
+        }
+    }
+
+    public virtual void UpdatePlayer(FaultPlayer faultPlayer) { }
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+    {
+        if (AfterEquipables)
+        {
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                if (tooltips[i].Name == "Equipable")
+                {
+                    tooltips.Insert(i + 1, new TooltipLine(Mod, "FaultCombat : Patch Tooltip", Tooltip));
+                    break;
+                }
+            }
+        }
+        else
+        {
+            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Patch Tooltip", Tooltip));
+        }
+    }
+
+    public virtual string Tooltip => "";
+}
 
 public abstract class SingleItemPatch : GlobalItem
 {
+    public virtual bool AfterEquipables => true;
     public virtual int Id => ItemID.None;
     public virtual bool AutoRoll => false;
     public override bool AppliesToEntity(Item entity, bool lateInstantiation)
@@ -23,21 +61,36 @@ public abstract class SingleItemPatch : GlobalItem
         if (player.TryGetModPlayer<FaultPlayer>(out var faultPlayer))
         {
             UpdatePlayer(faultPlayer);
-            
+
             if (AutoRoll) faultPlayer.autoRoll = true;
         }
     }
 
-    public virtual void UpdatePlayer(FaultPlayer faultPlayer) {}
+    public virtual void UpdatePlayer(FaultPlayer faultPlayer) { }
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
         if (AutoRoll)
         {
-            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Autoroll Tooltip", "Grant 'instinct' dodgeroll upon fatal damage"));
+            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Autoroll Tooltip",
+            FaultConfigClient.Instance.AccesoryAutoRoll ? "Grant 'instinct' dodgeroll upon fatal damage" : "( Auto Roll Disabled )"));
         }
         if (Tooltip != "")
         {
-            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Patch Tooltip", Tooltip));
+            if (AfterEquipables)
+            {
+                for (int i = 0; i < tooltips.Count; i++)
+                {
+                    if (tooltips[i].Name == "Equipable")
+                    {
+                        tooltips.Insert(i + 1, new TooltipLine(Mod, "FaultCombat : Patch Tooltip", Tooltip));
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                tooltips.Add(new TooltipLine(Mod, "FaultCombat: Patch Tooltip", Tooltip));
+            }
         }
     }
 
@@ -64,7 +117,40 @@ public abstract class ModItemPatch : GlobalItem
         }
     }
 
-    public virtual void UpdatePlayer(FaultPlayer faultPlayer) {}
+    public virtual void UpdatePlayer(FaultPlayer faultPlayer) { }
+
+    public virtual bool AfterEquipables => true;
+    public virtual bool AutoRoll => false;
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+    {
+        if (AutoRoll)
+        {
+            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Autoroll Tooltip",
+            FaultConfigClient.Instance.AccesoryAutoRoll ? "Grant 'instinct' dodgeroll upon fatal damage" : "( Auto Roll Disabled )"));
+        }
+        if (Tooltip != "")
+        {
+
+            if (AfterEquipables)
+            {
+                string tooltipID = item.material ? "Material" : "Equipable";
+                for (int i = 0; i < tooltips.Count; i++)
+                {
+                    if (tooltips[i].Name == tooltipID)
+                    {
+                        tooltips.Insert(i + 1, new TooltipLine(Mod, "FaultCombat : Patch Tooltip", Tooltip));
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                tooltips.Add(new TooltipLine(Mod, "FaultCombat: Patch Tooltip", Tooltip));
+            }
+        }
+    }
+
+    public virtual string Tooltip => "";
 }
 
 public abstract class ModItemPatchMultiple : GlobalItem
@@ -73,7 +159,7 @@ public abstract class ModItemPatchMultiple : GlobalItem
     {
         return entity.ModItem != null && entity.ModItem.Mod.Name == ModName && ItemName.Contains(entity.ModItem.Name);
     }
-    public virtual string[] ItemName => new string[] { "cum" };
+    public virtual string[] ItemName => ["cum"];
     public virtual string ModName => "CalamityMod";
 
     public override bool IsLoadingEnabled(Mod mod)
@@ -89,5 +175,36 @@ public abstract class ModItemPatchMultiple : GlobalItem
         }
     }
 
-    public virtual void UpdatePlayer(FaultPlayer faultPlayer) {}
+    public virtual void UpdatePlayer(FaultPlayer faultPlayer) { }
+
+    public virtual bool AfterEquipables => true;
+    public virtual bool AutoRoll => false;
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+    {
+        if (AutoRoll)
+        {
+            tooltips.Add(new TooltipLine(Mod, "FaultCombat: Autoroll Tooltip",
+            FaultConfigClient.Instance.AccesoryAutoRoll ? "Grant 'instinct' dodgeroll upon fatal damage" : "( Auto Roll Disabled )"));
+        }
+        if (Tooltip != "")
+        {
+            if (AfterEquipables)
+            {
+                for (int i = 0; i < tooltips.Count; i++)
+                {
+                    if (tooltips[i].Name == "Equipable")
+                    {
+                        tooltips.Insert(i + 1, new TooltipLine(Mod, "FaultCombat : Patch Tooltip", Tooltip));
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                tooltips.Add(new TooltipLine(Mod, "FaultCombat: Patch Tooltip", Tooltip));
+            }
+        }
+    }
+
+    public virtual string Tooltip => "";
 }

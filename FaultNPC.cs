@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -11,43 +12,87 @@ namespace FaultCombat;
 /// <summary>
 /// Staggerable NPCs, can only stagger once
 /// </summary>
-public class StaggerNPC : GlobalNPC
-{
-    public override bool InstancePerEntity => true;
-    public short poise = 1;
+// public class StaggerNPC : GlobalNPC
+// {
+//     public override bool InstancePerEntity => true;
+//     public short poise = 0;
+//     public bool staggerable;
 
-    public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
-    {
-        binaryWriter.Write(poise);
-    }
+//     public override void ResetEffects(NPC npc)
+//     {
+//         staggerable = false;
+//     }
 
-    public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
-    {
-        poise = binaryReader.ReadInt16();
-    }
+//     public short GetMaxPoise(NPC npc)
+//     {
+//         return (short)(npc.lifeMax / 2);
+//     }
 
-    public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
-    {
-        return lateInstantiation && entity.defDefense > 10 && !entity.friendly && entity.lifeMax > 150;
-    }
+//     public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
+//     {
+//         binaryWriter.Write(poise);
+//     }
 
-    public override void PostAI(NPC npc)
-    {
-        if (poise < 0)
-        {
-            poise++;
-        }
-    }
+//     public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
+//     {
+//         poise = binaryReader.ReadInt16();
+//     }
 
-    public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
-    {
-        if (poise < 0)
-        {
-            modifiers.Defense *= 0f;
-        }
-    }
+//     public static bool Staggerable(NPC entity)
+//     {
+//         return entity.defDefense > 5 && !entity.friendly && entity.lifeMax > 100;
+//     }
+//     public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
+//     {
+//         if (lateInstantiation && Staggerable(entity))
+//         {
+//             Mod.Logger.Info("Added "+entity.TypeName+" as staggerable enemy");
+//             return true;
+//         }
+//         return false;
+//     }
 
-}
+//     public override void SetDefaults(NPC entity)
+//     {
+//         poise = (short)(entity.lifeMax / 2);
+//     }
+
+//     public bool IsStaggered =>poise <= 0 && poise >= staggerTime;
+//     public override void PostAI(NPC npc)
+//     {
+//         if (IsStaggered)
+//         {
+//             poise--;
+//         }
+//     }
+
+//     public const short staggerTime = -60 * 10;
+//     public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+//     {
+//         if (IsStaggered)
+//         {
+//             modifiers.Defense *= 0f;
+//         }
+//     }
+
+//     public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+//     {
+        
+//     }
+
+//     // public override void HitEffect(NPC npc, NPC.HitInfo hit)
+//     // {
+//     //     if (poise > 0)
+//     //     {
+//     //         poise -= (short)hit.Damage;
+//     //         if (poise <= 0)
+//     //         {
+//     //             Main.NewText("Staggered");
+//     //         }
+//     //     }
+//     // }
+
+// }
 
 public class DodgerollingNPC : GlobalNPC
 {
@@ -62,7 +107,7 @@ public class DodgerollingNPC : GlobalNPC
 
     public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
     {
-        return NPCID.Sets.Zombies[entity.type];
+        return NPCID.Sets.Zombies[entity.type] || entity.aiStyle == NPCAIStyleID.Fighter;
         // return lateInstantiation && entity.lifeMax > 100 && !entity.friendly;
     }
 
@@ -93,6 +138,7 @@ public class DodgerollingNPC : GlobalNPC
 
     public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
     {
+        if (!Main.expertMode) return;
         if (IsDodging) return;
 
         if (rollCooldown <= 0 && Main.rand.NextBool(FaultConfig.Instance.EnemyRollChance))

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using Terraria.DataStructures;
 
-namespace FaultCombat.Utils;
+namespace FaultCombat.MyUtils;
 
 
 /// <summary>

@@ -33,3 +33,4 @@ packages/
 # User files
 local.json
 config.json
+/lib

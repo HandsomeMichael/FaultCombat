@@ -22,7 +22,15 @@ namespace FaultCombat
 		{
 			KeyDodgeroll = KeybindLoader.RegisterKeybind(this, "Dodgeroll", Keys.LeftControl);
 			KeyBlock = KeybindLoader.RegisterKeybind(this, "Block", Keys.LeftAlt);
+
+			if (ModLoader.TryGetMod("CalamityMod",out Mod cal)) calamity = cal;
+
 		}
+
+        public override void PostSetupContent()
+        {
+            base.PostSetupContent();
+        }
 
         public override void Unload()
         {
@@ -75,7 +83,8 @@ namespace FaultCombat
 					byte playerNumber = reader.ReadByte();
 					var boost = reader.ReadVector2();
 					// int direction = reader.ReadInt16();
-					// Main.player[playerNumber].GetModPlayer<DodgerollPlayer>().InitiateDodgeroll(boost, direction);
+					
+					if (Main.player[whoAmI].TryGetModPlayer(out modPlayer)) modPlayer.InitiateRoll(boost);
 					
 					break;
 

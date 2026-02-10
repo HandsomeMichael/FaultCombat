@@ -1,3 +1,9 @@
-displayName = Fault Combat : Sins and Ego
+displayName = Fault Combat : Dodgeroll & Calamity
 author = MrAgustavo
 version = 0.1
+weakReferences = CalamityMod
+sortAfter = CalamityMod , ParryBlockEtc
+hideCode = false
+hideResources = false
+includeSource = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, Old\*, *csbak

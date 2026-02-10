@@ -1,6 +1,6 @@
 using Terraria.DataStructures;
 
-namespace FaultCombat.Utils
+namespace FaultCombat.MyUtils
 {
     public static class Helpme
     {

@@ -1,10 +1,9 @@
 Tooltips: {
-	StaminaRegen: Increase stamina regeneration by {0}/s
-	StaminaMax: Increase maximum stamina by {0}
-	StaminaOnHit: Restore 50% of stamina
-	RollPerfect: "{0} on perfect dodgeroll"
-	RollCost: Increase stamina cost of dodgeroll
-	RollPowerup: Upon eating, allowing you to grant perfect dodgeroll
+	StaminaRegen: "Increase stamina regeneration by {0}/s"
+	StaminaMax: "Increase maximum stamina by {0}"
+	StaminaOnHit: "Restore {0}% of stamina after taking damage"
+	RollPerfect: "{0} on [c/F6AE2A:perfect] dodgeroll"
+	RollCost: "Increase stamina cost of dodgeroll by {0}"
 }
 
 Keybinds: {
@@ -23,6 +22,7 @@ Configs: {
 			Stamina: Stamina Settings
 			Balances: Balances Settings
 			Enemies: Enemies Header
+			WeightSystemWIP: Weight System W.I.P
 		}
 
 		RollEnable: {
@@ -96,6 +96,11 @@ Configs: {
 			Label: Enemy Roll Chance
 			Tooltip: ""
 		}
+
+		WeightEnable: {
+			Tooltip: ""
+			Label: Weight Enable
+		}
 	}
 
 	FaultConfigClient: {
@@ -104,6 +109,7 @@ Configs: {
 		Headers: {
 			Gameplay: Gameplay Header
 			UI: U I Header
+			UITooltps: U I Tooltps Header
 		}
 
 		AccesoryAutoRoll: {
@@ -153,6 +159,11 @@ Configs: {
 
 		StaminaBarNumber: {
 			Label: Stamina Bar Number
+			Tooltip: ""
+		}
+
+		TooltipsAdvanced: {
+			Label: Tooltips Advanced
 			Tooltip: ""
 		}
 	}
@@ -206,5 +217,54 @@ Buffs: {
 	FastHandBuff: {
 		DisplayName: Fast Hand
 		Description: Increase attack speed by 20%
+	}
+
+	StaggerDebuff: {
+		DisplayName: Stagger Debuff
+		Description: Mods.FaultCombat.Buffs.StaggerDebuff.Description
+	}
+
+	ShortStaminaRegen: {
+		Description: Mods.FaultCombat.Buffs.ShortStaminaRegen.Description
+		DisplayName: Short Stamina Regen
+	}
+}
+
+Items: {
+	AntiKillOrb: {
+		DisplayName: Anti Kill Orb
+		Tooltip: ""
+	}
+
+	HakariFever: {
+		DisplayName: Hakari Fever
+		Tooltip: 
+		'''
+		Give 1 lucky coin each perfect dodgeroll
+		If you got hit, spent 1 lucky coin to a lottery
+		Idling for 3 second will spent 1 lucky coin to a lottery
+		Lottery can reduce / increase / ignore damage or buff up player
+		Some vanity equipment amplifies and changes lottery rolls
+		'''
+		Jackpot:
+		'''
+		Increase jackpot chance by 2%
+		Increase 1% chance of lucky coin not consumed
+		'''
+		Coins:
+		'''
+		Double slot of lucky coin
+		Double the chances of losing in the lottery
+		'''
+		Generic:"Increase slot of lucky coin by 2"
+		Crimson:"Lottery have 7% increased chance to get buffed double damage"
+		Reverse:"Lottery have 7% increased chance to fully heal user if damaged"
+		Lovetrain:"Lottery have 7% increased chance to double current coin"
+		Lovetrain:"Lottery have 7% increased chance to get 3 coins"
+	}
+
+	NullifyWeight: {
+		Tooltip: ""
+		DisplayName: Nullify Weight
 	}
 }

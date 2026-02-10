@@ -13,7 +13,8 @@ namespace FaultCombat
         [DefaultValue(true)]
         public bool AccesoryAutoRoll { get; set; }
 
-        [DefaultValue(100)]
+        [DefaultValue(2)]
+        [Range(0,100)]
         public int AccesoryAutoRollPercentage { get; set; }
 
         [DefaultValue(false)]
@@ -21,6 +22,11 @@ namespace FaultCombat
 
         [DefaultValue(true)]
         public bool ShowDodgeIndicator { get; set; }
+
+        [Header("UITooltps")]
+
+        [DefaultValue(true)]
+        public bool TooltipsAdvanced { get; set; }
 
         [Header("UI")]
 
@@ -87,27 +93,32 @@ namespace FaultCombat
         [DefaultValue(true)]
         public bool RollCancelUseItem { get; set; }
 
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool RollPerfectTriggerHurt { get; set; }
 
         [Header("Stamina")]
 
         [Slider]
-        [DefaultValue(5f)]
+        [DefaultValue(10f)]
+        [Range(0f,20f)]
         public float StaminaBase { get; set; }
 
         [Slider]
-        [DefaultValue(3.5f)]
+        [DefaultValue(3f)]
         public float StaminaRegenRate { get; set; }
 
         [Header("Enemies")]
-        [DefaultValue(2)]
+        [DefaultValue(200)]
         public int EnemyRollChance { get; set; }
-
 
         [Header("Balances")]
 
         [DefaultValue(false)]
         public bool DashRequireStamina { get; set; }
+
+        [Header("WeightSystemWIP")]
+
+        [DefaultValue(false)]
+        public bool WeightEnable { get; set; }
     }
 }

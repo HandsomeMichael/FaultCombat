@@ -1,8 +1,9 @@
 
 
 using System;
+using FaultCombat.Content.Buffs;
 using FaultCombat.DataStructures;
-using FaultCombat.Utils;
+using FaultCombat.MyUtils;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -32,6 +33,8 @@ public partial class FaultPlayer : ModPlayer
     public bool dodgedSomething;
     public bool autoRoll;
     public bool direction;
+    public bool preventFumble;
+    public bool extraRoll;
     public void SetRight() => direction = true;
     public void SetLeft() => direction = false;
 
@@ -59,9 +62,13 @@ public partial class FaultPlayer : ModPlayer
         return 0;
     }
 
-    public bool RollAvailable() => stamina >= BaseRollCost; 
+    public bool RollAvailable() => stamina >= BaseRollCost || extraRoll; 
     public bool IsRolling => rollTime > 0;
-
+    public FaultCalamityPlayerData calamityPlayer = null;
+    public override void Initialize()
+    {
+        calamityPlayer = FaultCalamityPlayerData.Load();
+    }
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
         if (IsRolling || Player.dead || Player.mount.Active || Player.CCed) return;
@@ -69,6 +76,12 @@ public partial class FaultPlayer : ModPlayer
 
         if (dodgeKeyPressed)
         {
+            if (GetMaxStamina() < BaseRollCost)
+            {
+                CombatText.NewText(Player.Hitbox,Color.MediumVioletRed,"Too Heavy to roll");
+                return;
+            }
+
             if (!RollAvailable())
             {
                 SoundEngine.PlaySound(new SoundStyle("FaultCombat/Sounds/NoRoll"), Player.Center);
@@ -120,7 +133,7 @@ public partial class FaultPlayer : ModPlayer
 
     public void InitiateRoll(Vector2 newVelocity)
     {
-        DepleteStamina(BaseRollCost);
+        if (!extraRoll) DepleteStamina(BaseRollCost);
 
         ApplyBoost(newVelocity);
 
@@ -142,12 +155,6 @@ public partial class FaultPlayer : ModPlayer
         if (!Main.dedServ) SoundEngine.PlaySound(new SoundStyle("FaultCombat/Sounds/Roll" + Main.rand.Next(1, 4)
         ).WithVolumeScale(1f).WithPitchOffset(Main.rand.NextFloat(1.1f, 1.2f)), Player.Center);
     }
-
-    public override void PostUpdateBuffs()
-    {
-        
-    }
-
     public override void PostUpdate()
     {
         // roll effect
@@ -161,6 +168,9 @@ public partial class FaultPlayer : ModPlayer
             Player.fullRotationOrigin = Player.Center - Player.position;
             Player.fullRotation = Player.direction * MathHelper.Lerp(0, MathHelper.TwoPi, progress);
         }
+
+        ResetEgo();
+        CalculateWeight();
     }
     public override void PreUpdate()
     {
@@ -187,6 +197,13 @@ public partial class FaultPlayer : ModPlayer
             {
                 float rollCD = BaseRollCooldown;
                 staminaCooldownMax = (int)(rollCD * statRollCooldown);
+
+                // punish dodge spammer
+                if ((!dodgedSomething && !preventFumble) || extraRoll)
+                {
+                    Player.AddBuff(ModContent.BuffType<FumbleDodge>(),80);
+                    extraRoll = false;
+                }
 
                 // reset rotation
                 Player.fullRotationOrigin = Player.Center - Player.position;
@@ -228,6 +245,23 @@ public partial class FaultPlayer : ModPlayer
         return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genDust, ref damageSource);
     }
 
+    public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+    {
+        if (IsRolling && !modifiers.Dodgeable)
+        {
+            // half source damage bru
+            modifiers.SourceDamage *= 0.5f;
+        }
+    }
+
+    public override void OnHurt(Player.HurtInfo info)
+    {
+        if (IsRolling && !info.Dodgeable)
+        {
+            CombatText.NewText(Player.Hitbox,Color.White,"Undodgeable !");
+        }
+    }
+
     public override bool FreeDodge(Player.HurtInfo info)
     {
         if (FaultConfigClient.Instance.AccesoryAutoRoll && !IsRolling && autoRoll && RollAvailable() && (info.Damage > Player.statLife * (FaultConfigClient.Instance.AccesoryAutoRollPercentage / 100f) || Player.statLife <= 15) && !Player.CCed)
@@ -250,13 +284,20 @@ public partial class FaultPlayer : ModPlayer
         return base.FreeDodge(info);
     }
 
+    public bool IsDodgeable(PlayerDeathReason source,bool dodge)
+    {
+        bool dodgeable = dodge;
+        calamityPlayer?.CheckDodge(Player,source,ref dodgeable);
+        return dodgeable;
+    }
+
     public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
     {
         // dodge any undodgeeable stuff except fall damage
-        if (IsRolling && !damageSource.IsOther(DeathReasonOtherID.FallDamage))
+        if (IsRolling && !damageSource.IsOther(DeathReasonOtherID.FallDamage) && IsDodgeable(damageSource,dodgeable))
         {
             // handles dodge bonus
-            if (!dodgedSomething && dodgeable)
+            if (!dodgedSomething)
             {
                 GiveDodgeBonus(damageSource);
                 dodgedSomething = true;
@@ -267,6 +308,11 @@ public partial class FaultPlayer : ModPlayer
             return true;
         }
         return base.ImmuneTo(damageSource, cooldownCounter, dodgeable);
+    }
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        EgoCheck(target, hit, damageDone);
+        OnHitEffect(target,hit,damageDone);
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
